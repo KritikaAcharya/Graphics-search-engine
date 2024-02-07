@@ -47,11 +47,11 @@
     border-radius: 5px;
 }
 .search-box i{
-    position:relative;
+    position:absolute;
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     color: #605c57;
 
 }
