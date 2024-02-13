@@ -1,9 +1,11 @@
 const imagesWrapper = document.querySelector(".images");
 const loadMoreBtn = document.querySelector(".load-more");
+const searchInput = document.querySelector(".search-box input");
 
 const apiKey="oeNej0fRbUpIvwqXXKxsEThiHks1IoCHL65lJIuUlIxw7JXRdNQonA4S";
 const perPage=15;
 let currentPage=1;
+let searchTerm = null;
 
 const generateHTML = (images) => {
     imagesWrapper.innerHTML += images.map(img =>
@@ -33,9 +35,20 @@ const getImages = (apiURL) => {
 
 const loadMoreImages = () => {
     currentPage++;
-    let apiURL = `https://api.pexels.com/v1/curated?page=${currentPage}per_page=${perPage}`
+    let apiURL = `https://api.pexels.com/v1/curated?page=${currentPage}&per_page=${perPage}`
     getImages(apiURL);
 }
 
-getImages(`https://api.pexels.com/v1/curated?page=${currentPage}per_page=${perPage}`);
+const loadSearchImages = (e) => {
+    if(e.key === "Enter"){
+        currentPage = 1;
+        searchTerm = e.target.value;
+        imagesWrapper.innerHTML = "";
+        getImages(`https://api.pexels.com/v1/search?query=${searchTerm}&page=${currentPage}&per_page=${perPage}`);
+
+    }
+}
+
+getImages(`https://api.pexels.com/v1/curated?page=${currentPage}&per_page=${perPage}`);
 loadMoreBtn.addEventListener("click",loadMoreImages);
+searchInput.addEventListener("keyup",loadSearchImages);
